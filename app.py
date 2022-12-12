@@ -513,7 +513,7 @@ def CheckOut():
     return render_template('proceedCheckOut.html', medicines=medicines, orders=drugsNumber, length=length, total=total)    
 
 if __name__ == '__main__':
-    app.run(debug=True)
     initweb()
+    app.run(debug=True)
 
     
