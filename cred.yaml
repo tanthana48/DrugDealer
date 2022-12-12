@@ -1,4 +1,5 @@
 mysql_host : 'bv2rebwf6zzsv341.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
-mysql_user : '	tst0tivqlu67e7gq'
+mysql_user : 'tst0tivqlu67e7gq'
 mysql_password : 'sv9rhmc97jh3df88'
 mysql_db : 'sdnlyj640hwixpct'
+mysql_port : '3306'
