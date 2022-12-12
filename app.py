@@ -527,23 +527,43 @@ def CheckOut():
                 left = medicines[i]['medicine_stock']-n
                 queryStatement = f"update medicine set medicine_stock = '{left}' where medicine_name = '{medicines[i]['medicine_name']}'"
                 cur.execute(queryStatement)
-                cur.execute(f" SELECT * FROM member where member_tel ='{drugsNumber['phonenum']}'")
-                memid = cur.fetchall()
-                if (memid == ()):
-                    flash('this phonenumber is not in member', 'danger')
-                    return redirect('/payment')
-                now = datetime.now()
-                date = now.strftime("%m/%d/%Y, %H:%M:%S")
+                cur.execute(f" SELECT MAX(sale_id) FROM sale")
+                dictSaleid = cur.fetchall()
+                saleid = dictSaleid[0]['MAX(sale_id)'] + 1
+                print("sale "+str(saleid))
                 queryStatement = (
                     f"INSERT INTO "
-                    f"sale(sale_date, total_sale, member_id, employee_id) "
-                    f"VALUES('{date}', '{total}', '{memid[0]['member_id']}', '{1}')"
+                    f"sale_detail(sale_id, medicine_id, amount) "
+                    f"VALUES('{saleid}', '{medicines[i]['medicine_id']}', '{n}')"
                 )
                 cur.execute(queryStatement)
-                cur.execute(f"update member set member_point = member_point+'{total}' where member_id='{memid[0]['member_id']}'")
-                mysql.connection.commit()
-                cur.close()
-                flash('Stock updated', 'success')
+        if drugsNumber['phonenum'] != '':
+            cur.execute(f" SELECT * FROM member where member_tel ='{drugsNumber['phonenum']}'")
+            memid = cur.fetchall()
+            if (memid == ()):
+                flash('this phonenumber is not in member', 'danger')
+                return redirect('/payment')
+            now = datetime.now()
+            date = now.strftime("%m/%d/%Y, %H:%M:%S")
+            queryStatement = (
+                f"INSERT INTO "
+                f"sale(sale_date, total_sale, member_id, employee_id) "
+                f"VALUES('{date}', '{total}', '{memid[0]['member_id']}', '{session['username']}')"
+            )
+            cur.execute(queryStatement)
+            cur.execute(f"update member set member_point = member_point+'{total}' where member_id='{memid[0]['member_id']}'")
+        else:
+            now = datetime.now()
+            date = now.strftime("%m/%d/%Y, %H:%M:%S")
+            queryStatement = (
+                f"INSERT INTO "
+                f"sale(sale_date, total_sale, employee_id) "
+                f"VALUES('{date}', '{total}', '{session['username']}')"
+            )
+            cur.execute(queryStatement)
+        mysql.connection.commit()
+        cur.close()
+        flash('Stock updated', 'success')
                 
     return render_template('proceedCheckOut.html', medicines=medicines, orders=drugsNumber, length=length, total=total)    
 
