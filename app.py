@@ -513,9 +513,7 @@ def CheckOut():
         result_value = cur.execute(queryStatement) 
         medicines = cur.fetchall()
         drugsNumber = request.form
-        print(drugsNumber)
         length=len(medicines)
-        print(medicines[1])
         total = 0;
         for i in range(length):
             if drugsNumber[medicines[i]['medicine_name']] != '':
