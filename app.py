@@ -39,7 +39,7 @@ def initweb():
     mysql.connection.commit()
     cur.close()
 
-initweb
+initweb()
 
 @app.route("/")
 def index():
