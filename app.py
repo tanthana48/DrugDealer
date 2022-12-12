@@ -17,29 +17,37 @@ mysql = MySQL(app)
 
 @app.before_request
 def initweb():
-    hashed_pw = generate_password_hash('123456')
-    createrole = (
-            f"INSERT INTO "
-            f"role(role_id, role_type, role_name) "
-            f"VALUES(1, 'USER', 'user')"
-        )
-    createrole1 = (
-            f"INSERT INTO "
-            f"role(role_id, role_type, role_name) "
-            f"VALUES(2, 'ADMIN', 'admin')"
-        )
-    queryStatement = (
-            f"INSERT INTO "
-            f"employee(username, password, firstname, lastname, email, employee_tel, role_id) "
-            f"VALUES('admin', '{hashed_pw}', 'admin', 'admin', 'admin', '0000000000', 2)"
-        )
     cur = mysql.connection.cursor()
-    cur.execute(createrole)
-    cur.execute(createrole1)
-    cur.execute(queryStatement)
-    mysql.connection.commit()
+    queryStatement = f"SELECT * FROM role"
+    result = cur.execute(queryStatement)
+    print(result)
+    if result == 0:
+        createrole = (
+                f"INSERT INTO "
+                f"role(role_id, role_type, role_name) "
+                f"VALUES(1, 'USER', 'user')"
+            )
+        createrole1 = (
+                f"INSERT INTO "
+                f"role(role_id, role_type, role_name) "
+                f"VALUES(2, 'ADMIN', 'admin')"
+            )
+        cur.execute(createrole)
+        cur.execute(createrole1)
+        mysql.connection.commit()
+    
+    queryStatement = f"SELECT * FROM employee WHERE username = 'admin'"
+    result1 = cur.execute(queryStatement)
+    if result1 == 0:
+        hashed_pw = generate_password_hash('123456')
+        queryStatement = (
+                f"INSERT INTO "
+                f"employee(username, password, firstname, lastname, email, employee_tel, role_id) "
+                f"VALUES('admin', '{hashed_pw}', 'admin', 'admin', 'admin', '0000000000', 2)"
+            )
+        cur.execute(queryStatement)
+        mysql.connection.commit()
     cur.close()
-    return redirect("/")
 
 @app.route("/")
 def index():
