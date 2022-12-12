@@ -15,7 +15,7 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-@app.before_request
+@app.before_first_request
 def initweb():
     cur = mysql.connection.cursor()
     queryStatement = f"SELECT * FROM role"
@@ -38,6 +38,7 @@ def initweb():
     
     queryStatement = f"SELECT * FROM employee WHERE username = 'admin'"
     result1 = cur.execute(queryStatement)
+    print(result)
     if result1 == 0:
         hashed_pw = generate_password_hash('123456')
         queryStatement = (
