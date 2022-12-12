@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_mysqldb import MySQL
 import yaml
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "Never push this line to github public repo"
@@ -513,6 +514,7 @@ def CheckOut():
         result_value = cur.execute(queryStatement) 
         medicines = cur.fetchall()
         drugsNumber = request.form
+        print(drugsNumber)
         length=len(medicines)
         total = 0;
         for i in range(length):
@@ -525,6 +527,20 @@ def CheckOut():
                 left = medicines[i]['medicine_stock']-n
                 queryStatement = f"update medicine set medicine_stock = '{left}' where medicine_name = '{medicines[i]['medicine_name']}'"
                 cur.execute(queryStatement)
+                cur.execute(f" SELECT * FROM member where member_tel ='{drugsNumber['phonenum']}'")
+                memid = cur.fetchall()
+                if (memid == ()):
+                    flash('this phonenumber is not in member', 'danger')
+                    return redirect('/payment')
+                now = datetime.now()
+                date = now.strftime("%m/%d/%Y, %H:%M:%S")
+                queryStatement = (
+                    f"INSERT INTO "
+                    f"sale(sale_date, total_sale, member_id, employee_id) "
+                    f"VALUES('{date}', '{total}', '{memid[0]['member_id']}', '{1}')"
+                )
+                cur.execute(queryStatement)
+                cur.execute(f"update member set member_point = member_point+'{total}' where member_id='{memid[0]['member_id']}'")
                 mysql.connection.commit()
                 cur.close()
                 flash('Stock updated', 'success')
