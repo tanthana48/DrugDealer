@@ -15,6 +15,7 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
+@app
 def initweb():
     hashed_pw = generate_password_hash('123456')
     createrole = (
