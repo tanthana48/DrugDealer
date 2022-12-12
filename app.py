@@ -25,7 +25,7 @@ def initweb():
         createrole = (
                 f"INSERT INTO "
                 f"role(role_id, role_type, role_name) "
-                f"VALUES(1, 'USER', 'user')"
+                f"VALUES(1, 'EMPLOYEE', 'employee')"
             )
         createrole1 = (
                 f"INSERT INTO "
@@ -123,7 +123,8 @@ def users():
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
-
+    if session['userroleid'] != str(2):
+        return redirect('/')
     cur = mysql.connection.cursor()
     queryStatement = f"SELECT * FROM employee"
     print(queryStatement)
@@ -195,6 +196,8 @@ def addmed():
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
+    if session['userroleid'] != str(2):
+        return redirect('/')
     if request.method == 'GET':
         return render_template('new-medicine.html')
     elif request.method == 'POST':
@@ -229,6 +232,8 @@ def edit_medicine(id):
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
+    if session['userroleid'] != str(2):
+        return redirect('/')
     if request.method == 'POST':
         cur = mysql.connection.cursor()
         name = request.form['medicine_name']
@@ -264,6 +269,8 @@ def delete_medicine(id):
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
+    if session['userroleid'] != str(2):
+        return redirect('/')
     if request.method == 'GET':
         cur = mysql.connection.cursor()
         queryStatement = f"DELETE FROM medicine WHERE medicine_id = {id}"
@@ -345,6 +352,8 @@ def edit_user(id):
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
+    if session['userroleid'] != str(2):
+        return redirect('/')
     if request.method == 'POST':
         cur = mysql.connection.cursor()
         firstname = request.form['firstname']
@@ -399,6 +408,8 @@ def delete_user(id):
     except:
         flash('Please sign in first', 'danger')
         return redirect('/login')
+    if session['userroleid'] != str(2):
+        return redirect('/')
     if request.method == 'GET':
         cur = mysql.connection.cursor()
         queryStatement = f"DELETE FROM employee WHERE employee_id = {id}"
