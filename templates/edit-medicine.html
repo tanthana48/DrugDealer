@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Edit Medicine ({{ medicine_form['medicine_id'] }}) </div>
+</div>
+<div class="shadow p-3 mb-5 bg-body rounded" style="margin: 40px 40px 40px 40px;">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Medicine Name</label>
+            <input type="text" class="form-control" id="medicine_name" name="medicine_name" value="{{ medicine_form['medicine_name'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Medicine Details</label>
+            <input type="text" class="form-control" id="medicine_detail" name="medicine_detail" value="{{ medicine_form['medicine_detail'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Medicine Price</label>
+            <input type="text" class="form-control" id="medicine_price" name="medicine_price" pattern="[0-9]+" value="{{ medicine_form['medicine_price'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">Medicine Stock</label>
+            <input type="text" class="form-control" id="medicine_stock" name="medicine_stock" pattern="[0-9]+" value="{{ medicine_form['medicine_stock'] }}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save & Change</button>
+    </form>
+</div>
+{% endblock %}

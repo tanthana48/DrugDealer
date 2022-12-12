@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Medicine Stock List </div>
+</div>
+<div class="" style="margin: 0px 60px">
+    <a href="{{ url_for('addmed') }}" class="btn btn-sm btn-primary mt-3">Add New Medicine</a>
+    <div class="search" style="text-align: right;">
+        <form action="{{ url_for('search') }}" method=post>
+            <input type=text name=search placeholder="name" value="{{ request.form.search}}"></br>
+        </form>
+    </div>
+</div>
+    <div class="h-100 d-flex" style="margin: 0px 100px 100px 60px;">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                <th scope="col">Medicine ID</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Medicine Details</th>
+                <th scope="col">Medicine Price</th>
+                <th scope="col">Medicine Stock</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for medicine in medicines %}
+                    <tr>
+                    <th scope="row">{{ medicine['medicine_id'] }}</th>
+                    <td>{{ medicine['medicine_name'] }}</td>
+                    <td>{{ medicine['medicine_detail'] }}</td>
+                    <td>{{ medicine['medicine_price'] }}</td>
+                    <td>{{ medicine['medicine_stock'] }}</td>
+                    <td><a href="/edit-medicine/{{medicine['medicine_id']}}" class="btn btn-sm btn-warning">Edit</a></td>
+                    <td><a href="/delete-medicine/{{medicine['medicine_id']}}" class="btn btn-sm btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

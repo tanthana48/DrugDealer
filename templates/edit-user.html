@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="display-2">
+    Edit User ({{ user_form['username'] }})
+</div>
+<div class="shadow p-3 mb-5 bg-body rounded" style="margin: 40px 40px 40px 40px;">
+    <form method="POST">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" value="{{ user_form['firstname'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ user_form['lastname'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user_form['email'] }}" >
+          </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="employee_tel" name="employee_tel" pattern="[0-9]{10}" value="{{ user_form['employee_tel'] }}" />
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">Role</label>
+            <input type="text" class="form-control" id="role_id" name="role_id" pattern="[0-9]+" value="{{ user_form['role_id'] }}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save & Change</button>
+    </form>
+</div>
+{% endblock %}

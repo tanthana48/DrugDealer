@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Checkout Cart </div>
+</div>
+<br>
+    <div class="h-100 d-flex" style="margin: 0px 100px 100px 60px;">
+    <br>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                <th scope="col">Medicine ID</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Medicine Price</th>
+                <th scope="col">Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                    {% for i in range(length) %}
+                        {% if orders[medicines[i]['medicine_name']] != ''%}
+                            <tr>
+                            <th scope="row">{{ medicines[i]['medicine_id'] }}</th>
+                            <td>{{ medicines[i]['medicine_name'] }}</td>
+                            <td>{{ medicines[i]['medicine_price'] }}</td>
+                            <td>{{ ' x ' + orders[medicines[i]['medicine_name']] }}</td>
+                        
+                            </tr>
+                        {% endif %}    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="display-2" style="margin: 20px" > {{ total }} </div>
+    </div>
+</div>
+{% endblock %}

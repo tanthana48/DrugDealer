@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+<div class="shadow p-5 mb-5 bg-body rounded" style="margin: 200px 100px 100px 35px;">
+    <div class="jumbotron my-auto">
+      <h3>Main Page for Admin</h3>
+      <a href="{{ url_for('stock') }}">
+      <h3 class="display-7">
+        <i class="bi bi-play-fill">    
+        </i>Check and Add Medicine Stock List</h3>
+      </a>
+    <!-- Need to change url !!!!!-->
+      <a href="{{ url_for('members') }}">
+      <h3 class="display-7">
+        <i class="bi bi-play-fill">
+        </i>Member Management</h3>
+      </a>
+    <!-- Need to change url !!!!!-->
+      <a href="{{ url_for('payment') }}">
+      <h3 class="display-7">
+        <i class="bi bi-play-fill">
+        </i>Payment / Cart</h3>
+      </a>
+    <!-- Need to change url !!!!!-->
+      <a href="{{ url_for('addmed') }}">
+      <h3 class="display-7">
+        <i class="bi bi-play-fill">
+        </i>Medicine Information</h3>
+      </a>
+    <!-- Need to change url !!!!!-->
+      <a href="{{ url_for('users') }}">
+      <h3 class="display-7">
+        <i class="bi bi-play-fill">
+        </i></span>Add / Remove User</h3>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

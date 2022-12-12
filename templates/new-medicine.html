@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="shadow p-3 mb-5 bg-body rounded" style="margin: 40px 40px 40px 40px;">
+<form method="POST">
+    <div class="mb-3">
+        <label for="first_name" class="form-label">Medicine Name</label>
+        <input type="text" class="form-control" id="medicine_name" name="medicine_name" />
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Medicine Details</label>
+        <input type="tel" class="form-control" id="medicine_detail" name="medicine_detail" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Medicine Price</label>
+        <input type="tel" class="form-control" id="medicine_price" name="medicine_price" pattern="[0-9]+" required>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Medicine Stock</label>
+        <input type="tel" class="form-control" id="medicine_stock" name="medicine_stock" pattern="[0-9]+" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Medicine</button>
+  </form>
+</div>
+  {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Payment / Checkout Cart </div>
+</div>
+<br>
+<form action="{{ url_for('CheckOut') }}" method="POST">
+    <div class="h-100 d-flex" style="margin: 0px 100px 100px 60px;">
+    <br>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                <th scope="col">Medicine ID</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Medicine Price</th>
+                <th scope="col">Medicine Stock</th>
+                <th scope="col">Medicine Stock Checkout</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for medicine in medicines %}
+                    <tr>
+                    <th scope="row">{{ medicine['medicine_id'] }}</th>
+                    <td>{{ medicine['medicine_name'] }}</td>
+                    <td>{{ medicine['medicine_price'] }}</td>
+                    <td>{{ medicine['medicine_stock'] }}</td>
+                    <td>
+                        <input type="number" class="form-control" id="{{medicine['medicine_id']}}" name = "{{medicine['medicine_name']}}" placeholder="Amount">
+                    </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex flex-column" style="margin: -120px 100px">
+        <button type="submit" class="btn btn-primary">Checkout</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="shadow p-3 mb-5 bg-body rounded" style="margin: 40px 40px 40px 40px;">
+<form method="POST">
+    <div class="mb-3">
+        <label for="first_name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="member_name" name="member_name" />
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Telephone Number</label>
+        <input type="tel" class="form-control" id="member_tel" name="member_tel" pattern="[0-9]{10}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Create New Member</button>
+  </form>
+</div>
+  {% endblock %}

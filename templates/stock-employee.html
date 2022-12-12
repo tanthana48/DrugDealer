@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Medicine Stock List </div>
+</div>
+<div class="" style="margin: 0px 60px">
+    <div class="search" style="text-align: right;">
+        <form action="{{ url_for('search') }}" method=post>
+            <input type=text name=search placeholder="name" value="{{ request.form.search}}"></br>
+        </form>
+    </div>
+</div>
+    <div class="h-100 d-flex" style="margin: 0px 100px 100px 60px;">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                <th scope="col">Medicine ID</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Medicine Details</th>
+                <th scope="col">Medicine Price</th>
+                <th scope="col">Medicine Stock</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                    {% for med in medsList %} 
+                    <tr>
+                      <th scope="row">{{ med['medicine_id'] }}</th>
+                      <td>{{ med['medicine_name'] }}</td>
+                      <td>{{ med['medicine_detail'] }}</td>
+                      <td>{{ med['medicine_price'] }}</td>
+                      <td>{{ med['medicine_stock'] }}</td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

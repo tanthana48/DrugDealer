@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="display-2" style="margin: 20px" > Member List </div>
+</div>
+<div class="" style="margin: 0px 60px">
+    <a href="{{ url_for('createmember') }}" class="btn btn-sm btn-primary mt-3">Create New Member</a>
+</div>
+    <div class="h-100 d-flex" style="margin: 0px 100px 100px 60px;">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Telephone</th>
+                <th scope="col">Point</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                    <th scope="row">{{ member['member_id'] }}</th>
+                    <td>{{ member['name'] }}</td>
+                    <td>{{ member['member_tel'] }}</td>
+                    <td>{{ member['member_point'] }}</td>
+                    <td><a href="/edit-member/{{member['member_id']}}" class="btn btn-sm btn-warning">Edit</a></td>
+                    <td><a href="/delete-member/{{member['member_id']}}" class="btn btn-sm btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
