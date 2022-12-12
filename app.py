@@ -529,7 +529,10 @@ def CheckOut():
                 cur.execute(queryStatement)
                 cur.execute(f" SELECT MAX(sale_id) FROM sale")
                 dictSaleid = cur.fetchall()
-                saleid = dictSaleid[0]['MAX(sale_id)'] + 1
+                if dictSaleid[0]['MAX(sale_id)'] == None:
+                    saleid = 1
+                else:
+                    saleid = dictSaleid[0]['MAX(sale_id)'] + 1
                 print("sale "+str(saleid))
                 queryStatement = (
                     f"INSERT INTO "
@@ -537,14 +540,14 @@ def CheckOut():
                     f"VALUES('{saleid}', '{medicines[i]['medicine_id']}', '{n}')"
                 )
                 cur.execute(queryStatement)
+        now = datetime.now()
+        date = now.strftime("%m/%d/%Y, %H:%M:%S")
         if drugsNumber['phonenum'] != '':
             cur.execute(f" SELECT * FROM member where member_tel ='{drugsNumber['phonenum']}'")
             memid = cur.fetchall()
             if (memid == ()):
                 flash('this phonenumber is not in member', 'danger')
                 return redirect('/payment')
-            now = datetime.now()
-            date = now.strftime("%m/%d/%Y, %H:%M:%S")
             queryStatement = (
                 f"INSERT INTO "
                 f"sale(sale_date, total_sale, member_id, employee_id) "
@@ -553,8 +556,7 @@ def CheckOut():
             cur.execute(queryStatement)
             cur.execute(f"update member set member_point = member_point+'{total}' where member_id='{memid[0]['member_id']}'")
         else:
-            now = datetime.now()
-            date = now.strftime("%m/%d/%Y, %H:%M:%S")
+            print(date)
             queryStatement = (
                 f"INSERT INTO "
                 f"sale(sale_date, total_sale, employee_id) "
@@ -569,5 +571,3 @@ def CheckOut():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-    
