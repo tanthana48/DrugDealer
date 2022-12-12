@@ -38,7 +38,7 @@ def initweb():
     
     queryStatement = f"SELECT * FROM employee WHERE username = 'admin'"
     result1 = cur.execute(queryStatement)
-    print(result)
+    print(result1)
     if result1 == 0:
         hashed_pw = generate_password_hash('123456')
         queryStatement = (
