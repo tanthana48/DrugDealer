@@ -39,6 +39,7 @@ def initweb():
     cur.execute(queryStatement)
     mysql.connection.commit()
     cur.close()
+    return redirect("/")
 
 @app.route("/")
 def index():
