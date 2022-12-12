@@ -15,7 +15,6 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-@app.before_first_request()
 def initweb():
     hashed_pw = generate_password_hash('123456')
     createrole = (
@@ -514,5 +513,7 @@ def CheckOut():
     return render_template('proceedCheckOut.html', medicines=medicines, orders=drugsNumber, length=length, total=total)    
 
 if __name__ == '__main__':
-	app.run(debug=True)
+    app.run(debug=True)
+    initweb()
+
     
