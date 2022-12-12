@@ -15,31 +15,31 @@ app.config['MYSQL_DB'] = cred['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-createrole = (
+def initweb():
+    hashed_pw = generate_password_hash('123456')
+    createrole = (
             f"INSERT INTO "
             f"role(role_id, role_type, role_name) "
             f"VALUES(1, 'USER', 'user')"
         )
-createrole1 = (
+    createrole1 = (
             f"INSERT INTO "
             f"role(role_id, role_type, role_name) "
             f"VALUES(2, 'ADMIN', 'admin')"
         )
-cur = mysql.connection.cursor()
-cur.execute(createrole)
-cur.execute(createrole1)
-mysql.connection.commit()
-cur.close()
-hashed_pw = generate_password_hash("123456")
-queryStatement = (
+    queryStatement = (
             f"INSERT INTO "
             f"employee(username, password, firstname, lastname, email, employee_tel, role_id) "
             f"VALUES('admin', '{hashed_pw}', 'admin', 'admin', 'admin', '0000000000', 2)"
         )
-cur = mysql.connection.cursor()
-cur.execute(queryStatement)
-mysql.connection.commit()
-cur.close()
+    cur = mysql.connection.cursor()
+    cur.execute(createrole)
+    cur.execute(createrole1)
+    cur.execute(queryStatement)
+    mysql.connection.commit()
+    cur.close()
+
+initweb
 
 @app.route("/")
 def index():
